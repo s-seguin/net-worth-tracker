@@ -23,15 +23,16 @@ SECRET_KEY = os.environ.get("SECRET_KEY")
 
 DEBUG = bool(os.environ.get("DEBUG", default=False))
 
-# SECURITY WARNING: don't run with debug turned on in production!
+# SECURITY WARNING: don't run.py with debug turned on in production!
 # 'DJANGO_ALLOWED_HOSTS' should be a single string of hosts with a space between each.
 # For example: 'DJANGO_ALLOWED_HOSTS=localhost 127.0.0.1 [::1]'
-ALLOWED_HOSTS = os.environ.get("DJANGO_ALLOWED_HOSTS").split(" ")
+ALLOWED_HOSTS = os.environ.get("DJANGO_ALLOWED_HOSTS", default="").split(" ")
 
 # Application definition
 
 INSTALLED_APPS = [
-    'users.apps.UsersConfig',
+    'users',
+    'networth',
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
