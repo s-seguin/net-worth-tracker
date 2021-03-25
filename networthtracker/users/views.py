@@ -1,5 +1,8 @@
 from django.http import HttpResponse
 
+from .models import User
+
 
 def index(request):
-    return HttpResponse("Hello, world. You're at the users index.")
+    all_users = list(User.objects.all())
+    return HttpResponse(" ".join(map(str, all_users)))
