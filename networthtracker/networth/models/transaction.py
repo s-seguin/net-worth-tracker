@@ -1,10 +1,14 @@
 from django.db import models
+import uuid
+
+from users.models import User
 
 
 class Transaction(models.Model):
-    id = models.UUIDField(primary_key=True)
+    id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
     # todo finish references
     # not sure if this is the relationship or account
+    user = models.ForeignKey(User, on_delete=models.CASCADE)
     transaction_date = models.DateTimeField()
     settlement_date = models.DateTimeField()
     activity_type = models.CharField(max_length=100)
@@ -17,4 +21,4 @@ class Transaction(models.Model):
     commission = models.FloatField()
 
     def __str__(self):
-        return self.name
+        return self.description

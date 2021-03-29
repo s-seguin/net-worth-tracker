@@ -1,11 +1,12 @@
 from django.db import models
+import uuid
 
 from users.models import User
 
 
 class Account(models.Model):
-    id = models.UUIDField(primary_key=True)
-    user_id = models.ForeignKey(User, on_delete=models.CASCADE)
+    id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
+    user = models.ForeignKey(User, on_delete=models.CASCADE)
     name = models.CharField(max_length=250)
     account_number = models.CharField(max_length=150)
     type = models.CharField(max_length=150)
