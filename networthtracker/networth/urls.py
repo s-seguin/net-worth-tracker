@@ -7,6 +7,4 @@ router = routers.DefaultRouter()
 router.register(r"assets/cash", views.CashViewSet, basename="cash")
 router.register(r"assets", views.AssetViewSet, basename="asset")
 
-urlpatterns = [
-    path("", include(router.urls)),
-]
+urlpatterns = [path("", include(router.urls))]

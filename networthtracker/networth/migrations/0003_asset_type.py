@@ -4,9 +4,7 @@ from django.db import migrations, models
 
 
 class Migration(migrations.Migration):
-    dependencies = [
-        ("networth", "0002_auto_20210325_0400"),
-    ]
+    dependencies = [("networth", "0002_auto_20210325_0400")]
 
     operations = [
         migrations.AddField(
@@ -21,5 +19,5 @@ class Migration(migrations.Migration):
                 max_length=8,
                 null=True,
             ),
-        ),
+        )
     ]

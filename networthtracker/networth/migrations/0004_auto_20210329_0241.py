@@ -13,11 +13,9 @@ class Migration(migrations.Migration):
 
     operations = [
         migrations.RenameField(
-            model_name="account", old_name="user_id", new_name="user",
+            model_name="account", old_name="user_id", new_name="user"
         ),
-        migrations.RenameField(
-            model_name="asset", old_name="user_id", new_name="user",
-        ),
+        migrations.RenameField(model_name="asset", old_name="user_id", new_name="user"),
         migrations.AddField(
             model_name="transaction",
             name="user",

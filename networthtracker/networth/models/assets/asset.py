@@ -9,11 +9,7 @@ class Asset(models.Model):
     CASH = "cash"
     PROPERTY = "property"
     SECURITY = "security"
-    TYPE_CHOICES = (
-        (CASH, "Cash"),
-        (PROPERTY, "Property"),
-        (SECURITY, "Security"),
-    )
+    TYPE_CHOICES = ((CASH, "Cash"), (PROPERTY, "Property"), (SECURITY, "Security"))
     id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
     user = models.ForeignKey(User, on_delete=models.CASCADE)
     name = models.CharField(null=True, max_length=100)

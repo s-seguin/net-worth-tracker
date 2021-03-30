@@ -3,10 +3,7 @@ import uuid
 
 
 class TickerSymbol(models.Model):
-    CURRENCY_CHOICES = [
-        ("cad", "CAD"),
-        ("usd", "USD"),
-    ]
+    CURRENCY_CHOICES = [("cad", "CAD"), ("usd", "USD")]
     TYPE_CHOICES = [
         ("equity", "Equity Security"),
         ("debt", "Debt Security"),

@@ -5,9 +5,7 @@ import uuid
 
 
 class Migration(migrations.Migration):
-    dependencies = [
-        ("networth", "0001_initial"),
-    ]
+    dependencies = [("networth", "0001_initial")]
 
     operations = [
         migrations.AlterField(
