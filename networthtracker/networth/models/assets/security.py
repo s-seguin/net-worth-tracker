@@ -1,7 +1,7 @@
 from django.db import models
 
-from .asset import Asset
 from ..ticker_symbol import TickerSymbol
+from .asset import Asset
 
 
 class Security(Asset):
