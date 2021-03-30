@@ -18,7 +18,9 @@ class AssetViewSet(viewsets.ModelViewSet):
     permission_classes = [permissions.IsAuthenticated, IsOwner]
 
     def get_queryset(self):
-        return Asset.objects.filter(user=self.request.user).order_by("-updated_on")
+        return Asset.objects.filter(user=self.request.user).order_by(
+            "-updated_on"
+        )
 
 
 class CashViewSet(viewsets.ModelViewSet):
@@ -30,4 +32,6 @@ class CashViewSet(viewsets.ModelViewSet):
     permission_classes = [permissions.IsAuthenticated, IsOwner]
 
     def get_queryset(self):
-        return Cash.objects.filter(user=self.request.user).order_by("-updated_on")
+        return Cash.objects.filter(user=self.request.user).order_by(
+            "-updated_on"
+        )

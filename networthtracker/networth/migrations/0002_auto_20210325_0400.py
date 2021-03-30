@@ -12,28 +12,40 @@ class Migration(migrations.Migration):
             model_name="account",
             name="id",
             field=models.UUIDField(
-                default=uuid.uuid4, editable=False, primary_key=True, serialize=False
+                default=uuid.uuid4,
+                editable=False,
+                primary_key=True,
+                serialize=False,
             ),
         ),
         migrations.AlterField(
             model_name="asset",
             name="id",
             field=models.UUIDField(
-                default=uuid.uuid4, editable=False, primary_key=True, serialize=False
+                default=uuid.uuid4,
+                editable=False,
+                primary_key=True,
+                serialize=False,
             ),
         ),
         migrations.AlterField(
             model_name="tickersymbol",
             name="id",
             field=models.UUIDField(
-                default=uuid.uuid4, editable=False, primary_key=True, serialize=False
+                default=uuid.uuid4,
+                editable=False,
+                primary_key=True,
+                serialize=False,
             ),
         ),
         migrations.AlterField(
             model_name="transaction",
             name="id",
             field=models.UUIDField(
-                default=uuid.uuid4, editable=False, primary_key=True, serialize=False
+                default=uuid.uuid4,
+                editable=False,
+                primary_key=True,
+                serialize=False,
             ),
         ),
     ]
