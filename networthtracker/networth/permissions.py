@@ -1,5 +1,3 @@
-import logging
-
 from rest_framework import permissions
 
 
@@ -9,5 +7,4 @@ class IsOwner(permissions.BasePermission):
     """
 
     def has_object_permission(self, request, view, obj):
-        logging.warning("has_object_permissions")
         return obj.user == request.user

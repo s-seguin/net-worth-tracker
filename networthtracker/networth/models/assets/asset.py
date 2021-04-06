@@ -1,11 +1,14 @@
-import datetime
 import uuid
 
 from django.db import models
+from django.utils import timezone
 from users.models import User
 
+from ..account import Account
+from ..mixins.validate_owns_object import ValidateOwnsObjectMixin
 
-class Asset(models.Model):
+
+class Asset(ValidateOwnsObjectMixin, models.Model):
     CASH = "cash"
     PROPERTY = "property"
     SECURITY = "security"
@@ -17,6 +20,7 @@ class Asset(models.Model):
     id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
     user = models.ForeignKey(User, on_delete=models.CASCADE)
     name = models.CharField(null=True, max_length=100)
+    account = models.ForeignKey(Account, null=True, on_delete=models.SET_NULL)
     description = models.CharField(null=True, max_length=500)
     market_value = models.FloatField()
     book_value = models.FloatField()
@@ -28,5 +32,6 @@ class Asset(models.Model):
         return self.name
 
     def save(self, *args, **kwargs):
-        self.updated_on = datetime.datetime.utcnow()
+        self.updated_on = timezone.now()
+        self.validate_owns(model=Account, instance=self.account)
         super(Asset, self).save(*args, **kwargs)

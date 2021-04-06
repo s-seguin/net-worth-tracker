@@ -11,5 +11,7 @@ class Security(Asset):
     ticker_symbol = models.ForeignKey(
         TickerSymbol, null=True, on_delete=models.SET_NULL
     )
-    # todo add account reference
-    # todo add symbol references
+
+    def save(self, *args, **kwargs):
+        self.type = Asset.SECURITY
+        super(Security, self).save(*args, **kwargs)
