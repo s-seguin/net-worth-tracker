@@ -1,6 +1,6 @@
 from rest_framework import serializers
 
-from .models import Account, Asset, Cash, Property, Security, Transaction
+from .models import Asset, Cash, Liability, Property, Security, Transaction
 
 
 class AssetForeignKey(serializers.PrimaryKeyRelatedField):
@@ -8,14 +8,15 @@ class AssetForeignKey(serializers.PrimaryKeyRelatedField):
         return Asset.objects.filter(user=self.context["request"].user)
 
 
-class AccountForeignKey(serializers.PrimaryKeyRelatedField):
+class LiabilityForeignKey(serializers.PrimaryKeyRelatedField):
     def get_queryset(self):
-        return Account.objects.filter(user=self.context["request"].user)
+        return Liability.objects.filter(user=self.context["request"].user)
+
+
+# Serializers
 
 
 class AssetSerializer(serializers.ModelSerializer):
-    account = AccountForeignKey()
-
     class Meta:
         model = Asset
         fields = "__all__"
@@ -27,6 +28,17 @@ class CashSerializer(AssetSerializer):
         model = Cash
         fields = "__all__"
         read_only_fields = ["updated_on", "type", "id", "user"]
+
+
+class LiabilitySerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Liability
+        fields = "__all__"
+        read_only_fields = [
+            "updated_on",
+            "id",
+            "user",
+        ]  # todo if mortgage model etc. made, make type readonly
 
 
 class PropertySerializer(AssetSerializer):
@@ -43,18 +55,12 @@ class SecuritySerializer(AssetSerializer):
         read_only_fields = ["updated_on", "type", "id", "user"]
 
 
-class AccountSerializer(serializers.ModelSerializer):
-    class Meta:
-        model = Account
-        fields = "__all__"
-        read_only_fields = ["updated_on", "id", "user"]
-
-
 class TransactionSerializer(serializers.ModelSerializer):
-    asset = AssetForeignKey()
-    account = AccountForeignKey()
+    asset = AssetForeignKey(allow_null=True)
+    asset = AssetForeignKey(allow_null=True)
+    liability = LiabilityForeignKey(allow_null=True)
 
     class Meta:
         model = Transaction
         fields = "__all__"
-        read_only_fields = ["updated_on", "id", "user"]
+        read_only_fields = ["updated_on", "id", "user", "net_amount"]

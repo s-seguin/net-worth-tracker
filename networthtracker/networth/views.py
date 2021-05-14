@@ -1,11 +1,11 @@
 from rest_framework import permissions, viewsets
 
-from .models import Account, Asset, Cash, Property, Security, Transaction
+from .models import Asset, Cash, Liability, Property, Security, Transaction
 from .permissions import IsOwner
 from .serializers import (
-    AccountSerializer,
     AssetSerializer,
     CashSerializer,
+    LiabilitySerializer,
     PropertySerializer,
     SecuritySerializer,
     TransactionSerializer,
@@ -45,6 +45,20 @@ class CashViewSet(SetUserMixin, viewsets.ModelViewSet):
         )
 
 
+class LiabilityViewSet(SetUserMixin, viewsets.ModelViewSet):
+    """
+    API endpoint that allows liabilities to be viewed or edited.
+    """
+
+    serializer_class = LiabilitySerializer
+    permission_classes = [permissions.IsAuthenticated, IsOwner]
+
+    def get_queryset(self):
+        return Liability.objects.filter(user=self.request.user).order_by(
+            "-updated_on"
+        )
+
+
 class PropertyViewSet(SetUserMixin, viewsets.ModelViewSet):
     """
     API endpoint that allows property assets to be viewed or edited.
@@ -73,23 +87,9 @@ class SecurityViewSet(SetUserMixin, viewsets.ModelViewSet):
         )
 
 
-class AccountViewSet(SetUserMixin, viewsets.ModelViewSet):
-    """
-    API endpoint that allows accounts to be viewed or edited.
-    """
-
-    serializer_class = AccountSerializer
-    permission_classes = [permissions.IsAuthenticated, IsOwner]
-
-    def get_queryset(self):
-        return Account.objects.filter(user=self.request.user).order_by(
-            "-updated_on"
-        )
-
-
 class TransactionViewSet(SetUserMixin, viewsets.ModelViewSet):
     """
-    API endpoint that allows accounts to be viewed or edited.
+    API endpoint that allows transactions to be viewed or edited.
     """
 
     serializer_class = TransactionSerializer
