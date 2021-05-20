@@ -57,7 +57,6 @@ class SecuritySerializer(AssetSerializer):
 
 class TransactionSerializer(serializers.ModelSerializer):
     asset = AssetForeignKey(allow_null=True)
-    asset = AssetForeignKey(allow_null=True)
     liability = LiabilityForeignKey(allow_null=True)
 
     class Meta:

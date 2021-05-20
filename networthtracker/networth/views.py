@@ -1,4 +1,5 @@
-from rest_framework import permissions, viewsets
+from rest_framework import permissions, status, viewsets
+from rest_framework.response import Response
 
 from .models import Asset, Cash, Liability, Property, Security, Transaction
 from .permissions import IsOwner
@@ -10,6 +11,7 @@ from .serializers import (
     SecuritySerializer,
     TransactionSerializer,
 )
+from .services.transaction import TransactionService
 
 
 class SetUserMixin(viewsets.ModelViewSet):
@@ -87,15 +89,35 @@ class SecurityViewSet(SetUserMixin, viewsets.ModelViewSet):
         )
 
 
-class TransactionViewSet(SetUserMixin, viewsets.ModelViewSet):
+class TransactionViewSet(viewsets.ViewSet):
     """
     API endpoint that allows transactions to be viewed or edited.
     """
 
-    serializer_class = TransactionSerializer
+    serializer_class = TransactionSerializer  # needed for browsable api
     permission_classes = [permissions.IsAuthenticated, IsOwner]
 
-    def get_queryset(self):
-        return Transaction.objects.filter(user=self.request.user).order_by(
-            "-updated_on"
+    @staticmethod
+    def list(request):
+        transactions = TransactionService.get_transactions(user=request.user)
+        data = TransactionSerializer(transactions, many=True).data
+
+        return Response(data)
+
+    @staticmethod
+    def create(request):
+        serializer = TransactionSerializer(
+            data=request.data, context={"request": request}
         )
+        if not serializer.is_valid():
+            return Response(
+                serializer.errors, status=status.HTTP_400_BAD_REQUEST
+            )
+
+        transaction = TransactionService.create_transaction(
+            user=request.user, **serializer.validated_data
+        )
+        data = TransactionSerializer(
+            transaction, context={"request": request}
+        ).data
+        return Response(data, status=status.HTTP_201_CREATED)

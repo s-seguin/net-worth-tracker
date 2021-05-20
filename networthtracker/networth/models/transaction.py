@@ -64,7 +64,7 @@ class Transaction(ValidateOwnsObjectMixin, models.Model):
             self.asset.increase_quantity(self.quantity)
         elif self.action == self.SELL or self.action == self.WITHDRAW:
             self.asset.decrease_book_value(self.net_amount)
-            self.asset.decrrease_quantity(self.quantity)
+            self.asset.decrease_quantity(self.quantity)
 
     def update_liability(self):
         pass
