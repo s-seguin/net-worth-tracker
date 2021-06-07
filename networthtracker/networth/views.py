@@ -1,5 +1,4 @@
-from rest_framework import permissions, status, viewsets
-from rest_framework.response import Response
+from rest_framework import permissions, viewsets
 
 from .models import Asset, Cash, Liability, Property, Security, Transaction
 from .permissions import IsOwner
@@ -11,7 +10,6 @@ from .serializers import (
     SecuritySerializer,
     TransactionSerializer,
 )
-from .services.transaction import TransactionService
 
 
 class SetUserMixin(viewsets.ModelViewSet):
@@ -89,35 +87,21 @@ class SecurityViewSet(SetUserMixin, viewsets.ModelViewSet):
         )
 
 
-class TransactionViewSet(viewsets.ViewSet):
+class TransactionViewSet(SetUserMixin, viewsets.ModelViewSet):
     """
     API endpoint that allows transactions to be viewed or edited.
     """
 
-    serializer_class = TransactionSerializer  # needed for browsable api
+    serializer_class = TransactionSerializer
     permission_classes = [permissions.IsAuthenticated, IsOwner]
 
-    @staticmethod
-    def list(request):
-        transactions = TransactionService.get_transactions(user=request.user)
-        data = TransactionSerializer(transactions, many=True).data
+    def get_queryset(self):
+        holding = self.request.query_params.get("holding")
+        if holding is not None:
+            return Transaction.objects.filter(
+                user=self.request.user, holding=holding
+            ).order_by("-updated_on")
 
-        return Response(data)
-
-    @staticmethod
-    def create(request):
-        serializer = TransactionSerializer(
-            data=request.data, context={"request": request}
+        return Transaction.objects.filter(user=self.request.user).order_by(
+            "-updated_on"
         )
-        if not serializer.is_valid():
-            return Response(
-                serializer.errors, status=status.HTTP_400_BAD_REQUEST
-            )
-
-        transaction = TransactionService.create_transaction(
-            user=request.user, **serializer.validated_data
-        )
-        data = TransactionSerializer(
-            transaction, context={"request": request}
-        ).data
-        return Response(data, status=status.HTTP_201_CREATED)

@@ -1,16 +1,12 @@
 from rest_framework import serializers
 
 from .models import Asset, Cash, Liability, Property, Security, Transaction
+from .models.holding import Holding
 
 
-class AssetForeignKey(serializers.PrimaryKeyRelatedField):
+class HoldingForeignKey(serializers.PrimaryKeyRelatedField):
     def get_queryset(self):
-        return Asset.objects.filter(user=self.context["request"].user)
-
-
-class LiabilityForeignKey(serializers.PrimaryKeyRelatedField):
-    def get_queryset(self):
-        return Liability.objects.filter(user=self.context["request"].user)
+        return Holding.objects.filter(user=self.context["request"].user)
 
 
 # Serializers
@@ -56,8 +52,7 @@ class SecuritySerializer(AssetSerializer):
 
 
 class TransactionSerializer(serializers.ModelSerializer):
-    asset = AssetForeignKey(allow_null=True)
-    liability = LiabilityForeignKey(allow_null=True)
+    holding = HoldingForeignKey()
 
     class Meta:
         model = Transaction
