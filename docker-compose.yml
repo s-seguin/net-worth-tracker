@@ -1,15 +1,16 @@
 version: "3.7"
 
 services:
-  ui:
-    build: ./networthtracker-ui
-    ports:
-      - 3001:3001
-    env_file:
-      - ./networthtracker-ui/.env.dev
-    volumes:
-      - ./networthtracker-ui/public/:/usr/src/networthtracker-ui/public
-      - ./networthtracker-ui/src/:/usr/src/networthtracker-ui/src
+  # TODO: productionize, run locally for dev
+  # ui:
+  #   build: ./networthtracker-ui
+  #   ports:
+  #     - 3001:3001
+  #   env_file:
+  #     - ./networthtracker-ui/.env.dev
+  #   volumes:
+  #     - ./networthtracker-ui/public/:/usr/src/networthtracker-ui/public
+  #     - ./networthtracker-ui/src/:/usr/src/networthtracker-ui/src
 
   web:
     build: ./networthtracker

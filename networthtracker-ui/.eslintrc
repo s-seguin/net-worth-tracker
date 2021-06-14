@@ -10,7 +10,7 @@
   "plugins": ["simple-import-sort", "prettier", "import", "unused-imports"],
   "rules": {
     "arrow-parens": "off",
-    "simple-import-sort/imports": "error",
+    "simple-import-sort/imports": "warn",
     "sort-imports": "off",
     "prettier/prettier": "error",
     "import/first": "error",
