@@ -1,7 +1,8 @@
 import "./App.css";
 
+import React from "react";
+
 import { AppContainer } from "./app-container";
-import logo from "./logo.svg";
 
 function App() {
   return <AppContainer />;

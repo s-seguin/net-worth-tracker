@@ -21,13 +21,17 @@ repos:
     rev: v2.3.1
     hooks:
       - id: prettier
-        files: \.js|.jsx|.json|.css$
+        files: /\.js|\.jsx|\.json|\.css$
+        types: [file]
   - repo: https://github.com/pre-commit/mirrors-eslint
     rev: v7.28.0
     hooks:
       - id: eslint
-        files: \.jsx?$
+        files: \.[jt]sx?$
+        types: [file]
+        args: ["--max-warnings=0"]
         additional_dependencies:
+          - eslint-plugin-react@7.24.0
           - eslint-plugin-simple-import-sort@7.0.0
           - eslint-plugin-prettier@3.4.0
           - eslint-plugin-unused-imports@1.1.1
