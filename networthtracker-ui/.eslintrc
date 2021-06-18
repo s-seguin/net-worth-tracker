@@ -23,6 +23,10 @@
     "import/first": "warn",
     "import/newline-after-import": "warn",
     "import/no-duplicates": "warn",
-    "import/order": ["error", { "newlines-between": "always" }]
+    "import/order": ["warn", { "newlines-between": "always" }],
+    "no-unused-vars": "warn",
+    "unused-imports/no-unused-imports": "warn",
+    "unused-imports/no-unused-vars": "warn",
+    "react/prop-types": "off"
   }
 }
