@@ -18,7 +18,7 @@ class TickerSymbol(models.Model):
     ]
 
     id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
-    # todo look into this package: https://github.com/django-money/django-money
+    # todo: look into this package: https://github.com/django-money/django-money
     price_per_unit = models.FloatField()
     price_updated_on = models.DateTimeField()
     symbol = models.CharField(max_length=20)

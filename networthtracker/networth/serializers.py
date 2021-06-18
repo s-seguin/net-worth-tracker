@@ -34,7 +34,7 @@ class LiabilitySerializer(serializers.ModelSerializer):
             "updated_on",
             "id",
             "user",
-        ]  # todo if mortgage model etc. made, make type readonly
+        ]  # todo: if mortgage model etc. made, make type readonly
 
 
 class PropertySerializer(AssetSerializer):

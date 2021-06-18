@@ -10,11 +10,11 @@ class Account(models.Model):
     user = models.ForeignKey(User, on_delete=models.CASCADE)
     name = models.CharField(max_length=250)
     description = models.CharField(max_length=300, null=True)
-    # todo look into this package: https://github.com/django-money/django-money
+    # todo: look into this package: https://github.com/django-money/django-money
     balance = models.FloatField()
     updated_on = models.DateTimeField()
 
-    # todo finish references
+    # todo: finish references
 
     def __str__(self):
         return self.name

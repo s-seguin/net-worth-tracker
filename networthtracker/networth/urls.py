@@ -14,7 +14,7 @@ router.register(
 )
 router.register(r"assets", views.AssetViewSet, basename="asset")
 
-# todo organize these better
+# todo: organize these better
 router.register(
     r"transactions", views.TransactionViewSet, basename="transaction"
 )
