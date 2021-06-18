@@ -1,10 +1,9 @@
 from django.db import models
 
 from ..holding import Holding
-from ..mixins.validate_owns_object import ValidateOwnsObjectMixin
 
 
-class Liability(ValidateOwnsObjectMixin, Holding):
+class Liability(Holding):
     CREDIT_CARD = "credit_card"
     MORTGAGE = "mortgage"
     LOAN = "loan"

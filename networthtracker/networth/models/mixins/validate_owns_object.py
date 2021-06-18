@@ -3,7 +3,7 @@ import logging
 from django.core.exceptions import ValidationError
 
 
-# todo rename class?
+# todo: rename class?
 class ValidateOwnsObjectMixin:
     def validate_owns(self, model, instance):
         if instance is None:

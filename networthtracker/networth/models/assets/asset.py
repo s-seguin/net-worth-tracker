@@ -1,10 +1,9 @@
 from django.db import models
 
 from ..holding import Holding
-from ..mixins.validate_owns_object import ValidateOwnsObjectMixin
 
 
-class Asset(ValidateOwnsObjectMixin, Holding):
+class Asset(Holding):
     CASH = "cash"
     PROPERTY = "property"
     SECURITY = "security"

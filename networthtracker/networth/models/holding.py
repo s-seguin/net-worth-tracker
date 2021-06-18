@@ -17,4 +17,5 @@ class Holding(models.Model):
 
     def save(self, *args, **kwargs):
         self.updated_on = timezone.now()
+
         super(Holding, self).save(*args, **kwargs)
