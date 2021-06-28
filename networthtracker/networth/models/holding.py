@@ -2,15 +2,18 @@ import uuid
 
 from django.db import models
 from django.utils import timezone
-from users.models import User
+
+from .holding_manager import HoldingManager
 
 
 class Holding(models.Model):
     id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
-    user = models.ForeignKey(User, on_delete=models.CASCADE)
+    user = models.ForeignKey("users.User", on_delete=models.CASCADE)
     name = models.CharField(null=True, max_length=100)
     description = models.CharField(null=True, max_length=500)
     updated_on = models.DateTimeField()
+
+    objects = HoldingManager()
 
     def __str__(self):
         return self.name

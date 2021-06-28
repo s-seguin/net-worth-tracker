@@ -5,7 +5,8 @@ from django.core.exceptions import ValidationError
 
 # todo: rename class?
 class ValidateOwnsObjectMixin:
-    def validate_owns(self, model, instance):
+    def validate_owns(self, instance):
+        model = type(instance)
         if instance is None:
             logging.debug(f"Validating {model.__name__}: instance is None")
             return
@@ -19,5 +20,3 @@ class ValidateOwnsObjectMixin:
             raise ValidationError(
                 f'{model.__name__}: "{instance.id}" does not belong to user: "{self.user.id}"'
             )
-
-    # def validate_exclusive_or(self, a, b):

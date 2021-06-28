@@ -18,6 +18,8 @@ class AssetSerializer(serializers.ModelSerializer):
         fields = "__all__"
         read_only_fields = ["updated_on", "type", "id", "user"]
 
+    transaction_sum = serializers.FloatField(read_only=True)
+
 
 class CashSerializer(AssetSerializer):
     class Meta:
